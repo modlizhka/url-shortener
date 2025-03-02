@@ -7,9 +7,9 @@ import (
 	"url-shortener/pkg/storage"
 )
 
-const alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
+const Alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
 const hashLength = 8 // Длина желаемого хэша
-const maxIndex = len(alphabet) ^ 2 - 1
+const maxIndex = len(Alphabet) ^ 2 - 1
 
 //go:generate mockgen -source=user_service.go -destination=mocks/mock.go
 type Storage interface {
@@ -27,7 +27,7 @@ func NewShortenerService(Storage Storage) *ShortenerService {
 
 func (s ShortenerService) Shortening(ctx context.Context, longUrl string) (string, error) {
 	id := 0
-	hash := encodeHash(longUrl)
+	hash := EncodeHash(longUrl)
 	for id < maxIndex {
 		shortUrl := hash + IntToIndex63(id)
 		longCheck, err := s.Storage.GetLongUrl(ctx, shortUrl)
@@ -48,7 +48,7 @@ func (s ShortenerService) Expansion(ctx context.Context, shortUrl string) (strin
 }
 
 // Функция для преобразования байтов в строку фиксированной длины
-func encodeHash(input string) string {
+func EncodeHash(input string) string {
 	// Создаем хэш
 	hasher := sha256.New()
 	hasher.Write([]byte(input))
@@ -56,8 +56,8 @@ func encodeHash(input string) string {
 
 	result := ""
 	for i := 0; i < hashLength; i++ {
-		index := int(hash[i]) % len(alphabet) // Получаем индекс из хэша
-		result += string(alphabet[index])     // Добавляем символ из алфавита
+		index := int(hash[i]) % len(Alphabet) // Получаем индекс из хэша
+		result += string(Alphabet[index])     // Добавляем символ из алфавита
 	}
 	return result
 }
@@ -65,8 +65,8 @@ func encodeHash(input string) string {
 // Функция для преобразования числа из 10-тичной системы счисления в 63-ную
 func IntToIndex63(id int) string {
 	res := ""
-	res += string(alphabet[id/len(alphabet)])
-	res += string(alphabet[id%len(alphabet)])
+	res += string(Alphabet[id/len(Alphabet)])
+	res += string(Alphabet[id%len(Alphabet)])
 	return res
 
 }
