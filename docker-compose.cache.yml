@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  my_network:
+    driver: bridge
+
+services:
+  url-service:
+    build:
+      context: .
+      dockerfile: dockerfile.server
+    restart: always
+    environment:
+      - STORAGE=${STORAGE}
+    volumes:
+      - ./logs:/app/logs:z
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - my_network
+

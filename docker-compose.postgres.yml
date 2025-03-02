@@ -5,11 +5,13 @@ networks:
     driver: bridge
 
 services:
-  user-service:
+  url-service:
     build:
       context: .
       dockerfile: dockerfile.server
     restart: always
+    environment:
+      - STORAGE=${STORAGE}
     volumes:
       - ./logs:/app/logs:z
     ports:

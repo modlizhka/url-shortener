@@ -13,8 +13,8 @@ const maxIndex = len(Alphabet) ^ 2 - 1
 
 //go:generate mockgen -source=user_service.go -destination=mocks/mock.go
 type Storage interface {
-	GetLongUrl(ctx context.Context, shortUrl string) (string, error)
-	Insert(ctx context.Context, shortUrl, longUrl string) error
+	GetLongUrl(shortUrl string) (string, error)
+	Insert(shortUrl, longUrl string) error
 }
 
 type ShortenerService struct {
@@ -30,9 +30,9 @@ func (s ShortenerService) Shortening(ctx context.Context, longUrl string) (strin
 	hash := EncodeHash(longUrl)
 	for id < maxIndex {
 		shortUrl := hash + IntToIndex63(id)
-		longCheck, err := s.Storage.GetLongUrl(ctx, shortUrl)
+		longCheck, err := s.Storage.GetLongUrl(shortUrl)
 		if err == storage.ErrNotFound {
-			err = s.Storage.Insert(ctx, shortUrl, longUrl)
+			err = s.Storage.Insert(shortUrl, longUrl)
 			return shortUrl, err
 		} else if longCheck == longUrl {
 			return shortUrl, err
@@ -43,7 +43,7 @@ func (s ShortenerService) Shortening(ctx context.Context, longUrl string) (strin
 }
 
 func (s ShortenerService) Expansion(ctx context.Context, shortUrl string) (string, error) {
-	res, err := s.Storage.GetLongUrl(ctx, shortUrl)
+	res, err := s.Storage.GetLongUrl(shortUrl)
 	return res, err
 }
 

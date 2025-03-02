@@ -8,6 +8,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"net"
 	"os"
@@ -37,6 +38,14 @@ const (
 )
 
 func main() {
+	storageFlag := flag.String("storage", "", "flag for specifying storage")
+	flag.Parse()
+	fmt.Println(*storageFlag)
+
+	if *storageFlag != "cache" && *storageFlag != "postgres" {
+		panic("the argument: %s, is not supported, specify argument cache or postgres")
+	}
+
 	// 	init logger
 	logging.InitLogger(logFile)
 	logger, err := logging.GetLogger(logFile)
@@ -54,27 +63,37 @@ func main() {
 
 	// 	init storage
 
+	var storage service.Storage
+
+	if *storageFlag == "cache" {
+		storage = repository.NewCacheStorage()
+	} else {
+		pool, err := postgres.NewClient(context.Background(), cfg.DataBase)
+		if err != nil {
+			panic(err)
+		}
+		storage = repository.NewDataBaseStorage(&pool)
+	}
 	// 		init postgres
-	pool, err := postgres.NewClient(context.Background(), cfg.DataBase)
-	pstgrs := repository.NewDataBaseStorage(&pool)
+	// pool, err := postgres.NewClient(context.Background(), cfg.DataBase)
+	// pstgrs := repository.NewDataBaseStorage(&pool)
 
-	// 		init cache
-	cache := repository.NewCacheStorage()
-
-	storage := repository.NewStorage(pstgrs, cache)
+	// // 		init cache
+	// cache := repository.NewCacheStorage()
+	//
+	// storage := repository.NewStorage(pstgrs, cache)
 
 	service := service.NewShortenerService(storage)
-
 	// 	init router
 	router := gin.Default()
 
 	handler := handler.NewHandler(service, logger)
 	handler.Register(router)
-	start(router, cache, logger, cfg)
+	start(router, storage, logger, cfg)
 
 }
 
-func start(router *gin.Engine, cache *repository.CacheStorage, logger *logging.Logger, cfg *config.Config) {
+func start(router *gin.Engine, storage service.Storage, logger *logging.Logger, cfg *config.Config) {
 	logger.Info("start application")
 	var listener net.Listener
 	var listenErr error
@@ -108,10 +127,11 @@ func start(router *gin.Engine, cache *repository.CacheStorage, logger *logging.L
 			logger.Fatal(router.RunListener(listener))
 		}()
 
-		go func() {
-			defer cancel()
-			cache.CashChecker(cfg.CacheTTL)
-		}()
+		// go func() {
+		// 	defer cancel()
+		//
+		// 	storage.CashChecker(cfg.CacheTTL)
+		// }()
 		notifyCtx, notify := signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
 		defer notify()
 

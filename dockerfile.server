@@ -1,9 +1,17 @@
 FROM golang:1.24
 
+# Указываем аргумент сборки
+ARG STORAGE
+
 WORKDIR /app
 
 COPY . .
 
+# Компилируем приложение
 RUN go build -o user_service cmd/main.go
 
-ENTRYPOINT ["/app/user_service"]
+# Устанавливаем переменную окружения STORAGE
+ENV STORAGE=${STORAGE}
+
+# Используем командную оболочку для передачи аргумента
+ENTRYPOINT ["/bin/sh", "-c", "/app/user_service -storage=$STORAGE"]

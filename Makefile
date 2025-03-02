@@ -1,7 +1,11 @@
 all:run
 
 run:
-	docker compose up
+	@if [ "$(storage)" = "postgres" ]; then \
+		STORAGE=$(storage) docker-compose -f docker-compose.postgres.yml up; \
+	else \
+		STORAGE=$(storage) docker-compose -f docker-compose.cache.yml up; \
+	fi
 
 clean:
 	-rm -r logs
@@ -10,4 +14,4 @@ rebuild:
 	docker compose build --no-cache
 
 tests:
-	go test -v ./internal/service
+	go test -v ./tests/...
