@@ -1,0 +1,58 @@
+{"file":"config.go:39","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-02T22:32:12+07:00"}
+{"file":"main.go:79","func":"main.start()","level":"info","msg":"start application","time":"2025-03-02T22:32:12+07:00"}
+{"file":"main.go:97","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-02T22:32:12+07:00"}
+{"file":"main.go:99","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-02T22:32:12+07:00"}
+{"file":"main.go:102","func":"main.start()","level":"fatal","msg":"listen tcp 0.0.0.0:8080: bind: address already in use","time":"2025-03-02T22:32:12+07:00"}
+{"file":"config.go:39","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-02T22:42:16+07:00"}
+{"file":"main.go:79","func":"main.start()","level":"info","msg":"start application","time":"2025-03-02T22:42:16+07:00"}
+{"file":"main.go:97","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-02T22:42:16+07:00"}
+{"file":"main.go:99","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-02T22:42:16+07:00"}
+{"file":"main.go:129","func":"main.start.func1.2()","level":"info","msg":"shutting down gracefully","time":"2025-03-02T22:42:21+07:00"}
+{"file":"config.go:39","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-02T22:42:27+07:00"}
+{"file":"main.go:79","func":"main.start()","level":"info","msg":"start application","time":"2025-03-02T22:42:27+07:00"}
+{"file":"main.go:97","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-02T22:42:27+07:00"}
+{"file":"main.go:99","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-02T22:42:27+07:00"}
+{"file":"handler.go:99","func":"url-shortener/internal/controller.(*Handler).Shortening()","level":"error","msg":"Ошибка при сокращении: index out of range","time":"2025-03-02T22:43:04+07:00"}
+{"file":"main.go:129","func":"main.start.func1.2()","level":"info","msg":"shutting down gracefully","time":"2025-03-02T22:43:36+07:00"}
+{"file":"config.go:39","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-02T15:47:10Z"}
+{"file":"main.go:79","func":"main.start()","level":"info","msg":"start application","time":"2025-03-02T15:47:10Z"}
+{"file":"main.go:97","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-02T15:47:10Z"}
+{"file":"main.go:99","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-02T15:47:10Z"}
+{"file":"handler.go:99","func":"url-shortener/internal/controller.(*Handler).Shortening()","level":"error","msg":"Ошибка при сокращении: index out of range","time":"2025-03-02T15:51:40Z"}
+{"file":"main.go:129","func":"main.start.func1.2()","level":"info","msg":"shutting down gracefully","time":"2025-03-02T16:01:27Z"}
+{"file":"config.go:39","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-02T16:04:47Z"}
+{"file":"main.go:79","func":"main.start()","level":"info","msg":"start application","time":"2025-03-02T16:04:47Z"}
+{"file":"main.go:97","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-02T16:04:47Z"}
+{"file":"main.go:99","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-02T16:04:47Z"}
+{"file":"main.go:129","func":"main.start.func1.2()","level":"info","msg":"shutting down gracefully","time":"2025-03-02T16:39:49Z"}
+{"file":"config.go:39","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-02T16:43:53Z"}
+{"file":"main.go:79","func":"main.start()","level":"info","msg":"start application","time":"2025-03-02T16:43:53Z"}
+{"file":"main.go:97","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-02T16:43:53Z"}
+{"file":"main.go:99","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-02T16:43:53Z"}
+{"file":"handler.go:80","func":"url-shortener/internal/controller.(*Handler).Expansion()","level":"error","msg":"Ошибка при расширении: url not found","time":"2025-03-02T16:44:29Z"}
+{"file":"main.go:129","func":"main.start.func1.2()","level":"info","msg":"shutting down gracefully","time":"2025-03-02T16:45:32Z"}
+{"file":"config.go:39","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-02T16:46:51Z"}
+{"file":"main.go:79","func":"main.start()","level":"info","msg":"start application","time":"2025-03-02T16:46:51Z"}
+{"file":"main.go:97","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-02T16:46:51Z"}
+{"file":"main.go:99","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-02T16:46:51Z"}
+{"file":"handler.go:80","func":"url-shortener/internal/controller.(*Handler).Expansion()","level":"error","msg":"Ошибка при расширении: url not found","time":"2025-03-02T16:47:44Z"}
+{"file":"handler.go:80","func":"url-shortener/internal/controller.(*Handler).Expansion()","level":"error","msg":"Ошибка при расширении: url not found","time":"2025-03-02T16:49:15Z"}
+{"file":"handler.go:80","func":"url-shortener/internal/controller.(*Handler).Expansion()","level":"error","msg":"Ошибка при расширении: url not found","time":"2025-03-02T16:50:04Z"}
+{"file":"handler.go:80","func":"url-shortener/internal/controller.(*Handler).Expansion()","level":"error","msg":"Ошибка при расширении: url not found","time":"2025-03-02T16:50:16Z"}
+{"file":"handler.go:80","func":"url-shortener/internal/controller.(*Handler).Expansion()","level":"error","msg":"Ошибка при расширении: url not found","time":"2025-03-02T16:50:22Z"}
+{"file":"main.go:129","func":"main.start.func1.2()","level":"info","msg":"shutting down gracefully","time":"2025-03-02T17:01:26Z"}
+{"file":"config.go:39","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-03T00:01:56+07:00"}
+{"file":"main.go:79","func":"main.start()","level":"info","msg":"start application","time":"2025-03-03T00:01:56+07:00"}
+{"file":"main.go:97","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-03T00:01:56+07:00"}
+{"file":"main.go:99","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-03T00:01:56+07:00"}
+{"file":"main.go:129","func":"main.start.func1.2()","level":"info","msg":"shutting down gracefully","time":"2025-03-03T01:22:20+07:00"}
+{"file":"config.go:40","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-02T18:29:26Z"}
+{"file":"main.go:78","func":"main.start()","level":"info","msg":"start application","time":"2025-03-02T18:29:26Z"}
+{"file":"main.go:96","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-02T18:29:26Z"}
+{"file":"main.go:98","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-02T18:29:26Z"}
+{"file":"main.go:133","func":"main.start.func1.3()","level":"info","msg":"shutting down gracefully","time":"2025-03-02T18:31:35Z"}
+{"file":"config.go:40","func":"url-shortener/config.GetConfig.func1()","level":"info","msg":"read application configuration","time":"2025-03-03T01:31:40+07:00"}
+{"file":"main.go:78","func":"main.start()","level":"info","msg":"start application","time":"2025-03-03T01:31:40+07:00"}
+{"file":"main.go:96","func":"main.start()","level":"info","msg":"listen port","time":"2025-03-03T01:31:40+07:00"}
+{"file":"main.go:98","func":"main.start()","level":"info","msg":"server is listening on 0.0.0.0:8080","time":"2025-03-03T01:31:40+07:00"}
+{"file":"main.go:133","func":"main.start.func1.3()","level":"info","msg":"shutting down gracefully","time":"2025-03-03T01:31:42+07:00"}

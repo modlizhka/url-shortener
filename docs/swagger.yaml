@@ -1,0 +1,78 @@
+basePath: /
+definitions:
+  handler.ErrorResponse:
+    description: Формат ответа об ошибке
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample API for a URL shortener with Swagger documentation.
+  title: URL Shortener API
+  version: "1.0"
+paths:
+  /:longUrl:
+    get:
+      consumes:
+      - application/json
+      description: Преобразует длинную ссылку в компактную форму.
+      parameters:
+      - description: Длинная ссылка
+        in: path
+        name: longUrl
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Сокращённая ссылка
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Неверный ввод
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Сократить длинную ссылку
+      tags:
+      - Сокращение URL
+  /:shortUrl:
+    post:
+      consumes:
+      - application/json
+      description: Преобразует короткую ссылку в исходную длинную ссылку.
+      parameters:
+      - description: Короткая ссылка
+        in: path
+        name: shortUrl
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Расширенная длинная ссылка
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Неверный ввод
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Расширить короткую ссылку до её оригинальной формы
+      tags:
+      - Расширение URL
+swagger: "2.0"
