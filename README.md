@@ -23,4 +23,24 @@ make test
 make rebuild storage=*вариант хранилища*
 ```
 
-Логи приложения записываются в файл logs/server.log
+Логи приложения записываются в файл:
+```logs/server.log```
+
+Параметры для запуска сервера и БД указываются в файле ".env". Пример .env:
+```
+DB_HOST=postgres
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_NAME=postgres
+DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable
+
+LISTEN_TYPE=port
+BIND_IP=0.0.0.0
+PORT=8080
+```
+
+Документация к проекту:
+```
+http://localhost:8080/swagger/index.html
+```
