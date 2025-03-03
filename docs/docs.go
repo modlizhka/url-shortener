@@ -15,9 +15,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/:longUrl": {
+        "/expand": {
             "get": {
-                "description": "Преобразует длинную ссылку в компактную форму.",
+                "description": "Преобразует короткую ссылку в исходную длинную ссылку.",
                 "consumes": [
                     "application/json"
                 ],
@@ -25,21 +25,23 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Сокращение URL"
+                    "Расширение URL"
                 ],
-                "summary": "Сократить длинную ссылку",
+                "summary": "Расширить короткую ссылку до её оригинальной формы",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Длинная ссылка",
-                        "name": "longUrl",
-                        "in": "path",
-                        "required": true
+                        "description": "Короткая ссылка",
+                        "name": "shortUrl",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ShortURL"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Сокращённая ссылка",
+                        "description": "Расширенная длинная ссылка",
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
@@ -62,9 +64,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/:shortUrl": {
+        "/shorten": {
             "post": {
-                "description": "Преобразует короткую ссылку в исходную длинную ссылку.",
+                "description": "Преобразует длинную ссылку в компактную форму.",
                 "consumes": [
                     "application/json"
                 ],
@@ -72,21 +74,23 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Расширение URL"
+                    "Сокращение URL"
                 ],
-                "summary": "Расширить короткую ссылку до её оригинальной формы",
+                "summary": "Сократить длинную ссылку",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Короткая ссылка",
-                        "name": "shortUrl",
-                        "in": "path",
-                        "required": true
+                        "description": "Длинная ссылка",
+                        "name": "longUrl",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.LongURL"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Расширенная длинная ссылка",
+                        "description": "Сокращённая ссылка",
                         "schema": {
                             "type": "object",
                             "additionalProperties": {
@@ -116,6 +120,28 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.LongURL": {
+            "type": "object",
+            "required": [
+                "long_url"
+            ],
+            "properties": {
+                "long_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.ShortURL": {
+            "type": "object",
+            "required": [
+                "short_url"
+            ],
+            "properties": {
+                "short_url": {
                     "type": "string"
                 }
             }

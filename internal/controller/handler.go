@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	extendUrl  = "/"
-	shortenUrl = "/"
+	extendUrl  = "/expand"
+	shortenUrl = "/shorten"
 )
 
 // @Description Формат ответа об ошибке
@@ -58,11 +58,11 @@ func (h *Handler) Register(router *gin.Engine) {
 // @Tags Расширение URL
 // @Accept json
 // @Produce json
-// @Param shortUrl path string true "Короткая ссылка"
+// @Param shortUrl body model.ShortURL true "Короткая ссылка"
 // @Success 200 {object} map[string]string "Расширенная длинная ссылка"
 // @Failure 400 {object} ErrorResponse "Неверный ввод"
 // @Failure 500 {object} ErrorResponse "Внутренняя ошибка сервера"
-// @Router /:shortUrl [post]
+// @Router /expand [get]
 func (h *Handler) Expansion(ctx *gin.Context) {
 	var shortUrl model.ShortURL
 	if err := ctx.ShouldBindJSON(&shortUrl); err != nil {
@@ -79,7 +79,7 @@ func (h *Handler) Expansion(ctx *gin.Context) {
 		ctx.Abort()
 		return
 	}
-	ctx.JSON(http.StatusOK, map[string]string{"long url": res})
+	ctx.JSON(http.StatusOK, map[string]string{"long_url": res})
 }
 
 // @Summary Сократить длинную ссылку
@@ -87,11 +87,11 @@ func (h *Handler) Expansion(ctx *gin.Context) {
 // @Tags Сокращение URL
 // @Accept json
 // @Produce json
-// @Param longUrl path string true "Длинная ссылка"
+// @Param longUrl body model.LongURL true "Длинная ссылка"
 // @Success 200 {object} map[string]string "Сокращённая ссылка"
 // @Failure 400 {object} ErrorResponse "Неверный ввод"
 // @Failure 500 {object} ErrorResponse "Внутренняя ошибка сервера"
-// @Router /:longUrl [get]
+// @Router /shorten [post]
 func (h *Handler) Shortening(ctx *gin.Context) {
 	var longUrl model.LongURL
 	if err := ctx.ShouldBindJSON(&longUrl); err != nil {
@@ -110,5 +110,5 @@ func (h *Handler) Shortening(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, map[string]string{"short url": res})
+	ctx.JSON(http.StatusOK, map[string]string{"short_url": res})
 }

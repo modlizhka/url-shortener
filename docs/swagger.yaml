@@ -6,6 +6,20 @@ definitions:
       message:
         type: string
     type: object
+  model.LongURL:
+    properties:
+      long_url:
+        type: string
+    required:
+    - long_url
+    type: object
+  model.ShortURL:
+    properties:
+      short_url:
+        type: string
+    required:
+    - short_url
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -13,48 +27,18 @@ info:
   title: URL Shortener API
   version: "1.0"
 paths:
-  /:longUrl:
+  /expand:
     get:
-      consumes:
-      - application/json
-      description: Преобразует длинную ссылку в компактную форму.
-      parameters:
-      - description: Длинная ссылка
-        in: path
-        name: longUrl
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Сокращённая ссылка
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "400":
-          description: Неверный ввод
-          schema:
-            $ref: '#/definitions/handler.ErrorResponse'
-        "500":
-          description: Внутренняя ошибка сервера
-          schema:
-            $ref: '#/definitions/handler.ErrorResponse'
-      summary: Сократить длинную ссылку
-      tags:
-      - Сокращение URL
-  /:shortUrl:
-    post:
       consumes:
       - application/json
       description: Преобразует короткую ссылку в исходную длинную ссылку.
       parameters:
       - description: Короткая ссылка
-        in: path
+        in: body
         name: shortUrl
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/model.ShortURL'
       produces:
       - application/json
       responses:
@@ -75,4 +59,36 @@ paths:
       summary: Расширить короткую ссылку до её оригинальной формы
       tags:
       - Расширение URL
+  /shorten:
+    post:
+      consumes:
+      - application/json
+      description: Преобразует длинную ссылку в компактную форму.
+      parameters:
+      - description: Длинная ссылка
+        in: body
+        name: longUrl
+        required: true
+        schema:
+          $ref: '#/definitions/model.LongURL'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Сокращённая ссылка
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Неверный ввод
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Внутренняя ошибка сервера
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Сократить длинную ссылку
+      tags:
+      - Сокращение URL
 swagger: "2.0"
