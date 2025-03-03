@@ -73,16 +73,9 @@ func main() {
 		}
 		storage = repository.NewDataBaseStorage(&pool)
 	}
-	// 		init postgres
-	// pool, err := postgres.NewClient(context.Background(), cfg.DataBase)
-	// pstgrs := repository.NewDataBaseStorage(&pool)
-
-	// // 		init cache
-	// cache := repository.NewCacheStorage()
-	//
-	// storage := repository.NewStorage(pstgrs, cache)
-
+	// // 	init service
 	service := service.NewShortenerService(storage)
+
 	// 	init router
 	router := gin.Default()
 

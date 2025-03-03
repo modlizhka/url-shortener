@@ -6,12 +6,10 @@ import (
 	"url-shortener/internal/model"
 
 	"github.com/gin-gonic/gin"
-
-	_ "github.com/swaggo/gin-swagger"
-	ginSwagger "github.com/swaggo/gin-swagger"
-
 	_ "github.com/swaggo/files"
 	swaggerFiles "github.com/swaggo/files"
+	_ "github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	_ "url-shortener/docs"
 )
 
@@ -20,7 +18,6 @@ const (
 	shortenUrl = "/"
 )
 
-// ErrorResponse представляет структуру ответа об ошибке.
 // @Description Формат ответа об ошибке
 type ErrorResponse struct {
 	Message string `json:"message"`

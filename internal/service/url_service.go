@@ -7,10 +7,9 @@ import (
 )
 
 const Alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
-const hashLength = 8 // Длина желаемого хэша
-const maxIndex = len(Alphabet) ^ 2 - 1
+const hashLength = 8                   // Длина желаемого хэша
+const maxIndex = len(Alphabet) ^ 2 - 1 // Максимальное кол-во коллизий для одного хэша
 
-//go:generate mockgen -source=user_service.go -destination=mocks/mock.go
 type Storage interface {
 	GetLongUrl(shortUrl string) (string, error)
 	Insert(shortUrl, longUrl string) error
@@ -46,9 +45,16 @@ func (s ShortenerService) Expansion(shortUrl string) (string, error) {
 	return res, err
 }
 
+// Для разрешения коллизий вычисляем хэш полученного значения,
+// после чего преобразуем его в 8 символов из требуемого алфавита (буквы, цифры, "_")
+// в оставшиеся два символа записываем порядковый номер данной коллизий в 63-ом формате
+
+// т.е: предположим что для ссылки "example1.com" вычислился хэш - "Xa31kJi_", и для него нет коллизий - в результате получится значение "Xa31kJi_00"
+// предположим, что что для ссылки "example2.com" получился такой же хэш (вероятность данного события крайне мала), в базе уже присутсвует ссылка
+// начинающаяся на "Xa31kJi_", тогда результатом для "example2.com" будет - "Xa31kJi_01"
+
 // Функция для преобразования байтов в строку фиксированной длины
 func EncodeHash(input string) string {
-	// Создаем хэш
 	hasher := sha256.New()
 	hasher.Write([]byte(input))
 	hash := hasher.Sum(nil)
@@ -61,7 +67,7 @@ func EncodeHash(input string) string {
 	return result
 }
 
-// Функция для преобразования числа из 10-тичной системы счисления в 63-ную
+// Функция для преобразования числа из 10-тичной системы счисления в двухразрядное число в 63-ной системе
 func IntToIndex63(id int) string {
 	res := ""
 	res += string(Alphabet[id/len(Alphabet)])
