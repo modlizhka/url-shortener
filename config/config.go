@@ -11,7 +11,6 @@ import (
 type Config struct {
 	Listen   Listen   `env:"LISTEN"`
 	DataBase DataBase `env:"DATABASE"`
-	CacheTTL int64    `env:"CACHE_TTL"`
 }
 
 type Listen struct {

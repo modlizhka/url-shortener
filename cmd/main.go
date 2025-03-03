@@ -118,12 +118,6 @@ func start(router *gin.Engine, storage service.Storage, logger *logging.Logger, 
 			defer cancel()
 			logger.Fatal(router.RunListener(listener))
 		}()
-
-		// go func() {
-		// 	defer cancel()
-		//
-		// 	storage.CashChecker(cfg.CacheTTL)
-		// }()
 		notifyCtx, notify := signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
 		defer notify()
 
