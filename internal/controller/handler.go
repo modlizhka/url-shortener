@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"context"
 	"net/http"
 
 	"url-shortener/internal/model"
@@ -28,8 +27,8 @@ type ErrorResponse struct {
 }
 
 type shortenerService interface {
-	Shortening(context.Context, string) (string, error)
-	Expansion(context.Context, string) (string, error)
+	Shortening(string) (string, error)
+	Expansion(string) (string, error)
 }
 
 type Logger interface {
@@ -76,7 +75,7 @@ func (h *Handler) Expansion(ctx *gin.Context) {
 		ctx.Abort()
 		return
 	}
-	res, err := h.shortenerService.Expansion(ctx.Request.Context(), shortUrl.URL)
+	res, err := h.shortenerService.Expansion(shortUrl.URL)
 	if err != nil {
 		h.logger.Errorf("Ошибка при расширении: %v", err)
 		ctx.JSON(http.StatusInternalServerError, ErrorResponse{Message: err.Error()})
@@ -106,7 +105,7 @@ func (h *Handler) Shortening(ctx *gin.Context) {
 		return
 	}
 
-	res, err := h.shortenerService.Shortening(ctx.Request.Context(), longUrl.URL)
+	res, err := h.shortenerService.Shortening(longUrl.URL)
 	if err != nil {
 		h.logger.Errorf("Ошибка при сокращении: %v", err)
 		ctx.JSON(http.StatusInternalServerError, ErrorResponse{Message: err.Error()})

@@ -2,7 +2,6 @@ package tests
 
 import (
 	"bytes"
-	"context"
 	// "json"
 	"encoding/json"
 	"net/http"
@@ -23,7 +22,7 @@ func TestShortenEndpoint(t *testing.T) {
 	router := gin.Default()
 
 	mockService := new(mocks.MockShortenerService)
-	mockService.On("Shortening", context.Background(), "https://example.com").Return("test_short_url", nil).Once()
+	mockService.On("Shortening", "https://example.com").Return("test_short_url", nil).Once()
 
 	handler := handler.NewHandler(mockService, nil)
 	handler.Register(router)

@@ -11,7 +11,11 @@ clean:
 	-rm -r logs
 
 rebuild:
-	docker compose build --no-cache
+	@if [ "$(storage)" = "postgres" ]; then \
+		STORAGE=$(storage) docker-compose -f docker-compose.postgres.yml build --no-cache; \
+	else \
+		STORAGE=$(storage) docker-compose -f docker-compose.cache.yml build --no-cache; \
+	fi
 
-tests:
-	go test -v ./tests/...
+test:
+	-go test -v ./tests/...

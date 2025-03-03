@@ -1,7 +1,6 @@
 package mocks
 
 import (
-	"context"
 
 	// "url-shortener/pkg/storage"
 
@@ -12,12 +11,12 @@ type MockShortenerService struct {
 	mock.Mock
 }
 
-func (m *MockShortenerService) Shortening(ctx context.Context, longUrl string) (string, error) {
-	args := m.Called(ctx, longUrl)
+func (m *MockShortenerService) Shortening(longUrl string) (string, error) {
+	args := m.Called(longUrl)
 	return args.String(0), args.Error(1)
 }
 
-func (m *MockShortenerService) Expansion(ctx context.Context, shortUrl string) (string, error) {
-	args := m.Called(ctx, shortUrl)
+func (m *MockShortenerService) Expansion(shortUrl string) (string, error) {
+	args := m.Called(shortUrl)
 	return args.String(0), args.Error(1)
 }

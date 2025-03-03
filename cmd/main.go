@@ -38,7 +38,7 @@ const (
 )
 
 func main() {
-	storageFlag := flag.String("storage", "", "flag for specifying storage")
+	storageFlag := flag.String("storage", "cache", "flag for specifying storage")
 	flag.Parse()
 	fmt.Println(*storageFlag)
 
@@ -64,7 +64,6 @@ func main() {
 	// 	init storage
 
 	var storage service.Storage
-
 	if *storageFlag == "cache" {
 		storage = repository.NewCacheStorage()
 	} else {

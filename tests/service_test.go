@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -25,7 +24,7 @@ func TestShortening(t *testing.T) {
 	service := service.NewShortenerService(mockStorage)
 
 	// Вызываем метод Shortening
-	shortURL, err := service.Shortening(context.Background(), "https://example.com")
+	shortURL, err := service.Shortening("https://example.com")
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
@@ -41,11 +40,11 @@ func TestShortening(t *testing.T) {
 
 func TestExpansion(t *testing.T) {
 	mockStorage := new(mocks.MockStorage)
-	mockStorage.On("GetLongUrl", context.Background(), "test_short_url").Return("https://example.com", nil).Once()
+	mockStorage.On("GetLongUrl", "test_short_url").Return("https://example.com", nil).Once()
 
 	service := service.NewShortenerService(mockStorage)
 
-	longURL, err := service.Expansion(context.Background(), "test_short_url")
+	longURL, err := service.Expansion("test_short_url")
 	assert.NoError(t, err)
 	assert.Equal(t, "https://example.com", longURL)
 

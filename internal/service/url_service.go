@@ -1,7 +1,6 @@
 package service
 
 import (
-	"context"
 	"crypto/sha256"
 	"errors"
 	"url-shortener/pkg/storage"
@@ -25,7 +24,7 @@ func NewShortenerService(Storage Storage) *ShortenerService {
 	return &ShortenerService{Storage: Storage}
 }
 
-func (s ShortenerService) Shortening(ctx context.Context, longUrl string) (string, error) {
+func (s ShortenerService) Shortening(longUrl string) (string, error) {
 	id := 0
 	hash := EncodeHash(longUrl)
 	for id < maxIndex {
@@ -42,7 +41,7 @@ func (s ShortenerService) Shortening(ctx context.Context, longUrl string) (strin
 	return "", errors.New("index out of range")
 }
 
-func (s ShortenerService) Expansion(ctx context.Context, shortUrl string) (string, error) {
+func (s ShortenerService) Expansion(shortUrl string) (string, error) {
 	res, err := s.Storage.GetLongUrl(shortUrl)
 	return res, err
 }

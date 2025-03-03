@@ -4,7 +4,6 @@
 package mocks
 
 import (
-    "context"
     // "url-shortener/pkg/storage"
 
     "github.com/stretchr/testify/mock"
@@ -16,19 +15,19 @@ type MockStorage struct {
 }
 
 // GetLongUrl provides a mock function with given fields: ctx, shortUrl
-func (_m *MockStorage) GetLongUrl(ctx context.Context, shortUrl string) (string, error) {
-    ret := _m.Called(ctx, shortUrl)
+func (_m *MockStorage) GetLongUrl(shortUrl string) (string, error) {
+    ret := _m.Called(shortUrl)
 
     var r0 string
-    if rf, ok := ret.Get(0).(func(context.Context, string) string); ok {
-        r0 = rf(ctx, shortUrl)
+    if rf, ok := ret.Get(0).(func( string) string); ok {
+        r0 = rf( shortUrl)
     } else {
         r0 = ret.Get(0).(string)
     }
 
     var r1 error
-    if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
-        r1 = rf(ctx, shortUrl)
+    if rf, ok := ret.Get(1).(func( string) error); ok {
+        r1 = rf( shortUrl)
     } else {
         r1 = ret.Error(1)
     }
@@ -37,12 +36,12 @@ func (_m *MockStorage) GetLongUrl(ctx context.Context, shortUrl string) (string,
 }
 
 // Insert provides a mock function with given fields: ctx, shortURL, longURL
-func (_m *MockStorage) Insert(ctx context.Context, shortURL, longURL string) error {
-    ret := _m.Called(ctx, shortURL, longURL)
+func (_m *MockStorage) Insert(shortURL, longURL string) error {
+    ret := _m.Called(shortURL, longURL)
 
     var r0 error
-    if rf, ok := ret.Get(0).(func(context.Context, string, string) error); ok {
-        r0 = rf(ctx, shortURL, longURL)
+    if rf, ok := ret.Get(0).(func( string, string) error); ok {
+        r0 = rf(shortURL, longURL)
     } else {
         r0 = ret.Error(0)
     }
