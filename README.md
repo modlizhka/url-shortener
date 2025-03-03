@@ -22,3 +22,5 @@ make test
 ```
 make rebuild storage=*вариант хранилища*
 ```
+
+Логи приложения записываются в файл logs/server.log
