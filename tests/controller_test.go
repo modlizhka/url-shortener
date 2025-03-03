@@ -29,7 +29,7 @@ func TestShortenEndpoint(t *testing.T) {
 
 	// Создание POST-запроса для сокращения ссылки
 	reqBody := model.LongURL{URL: "https://example.com"}
-	req := httptest.NewRequest(http.MethodPost, "/", convertToJSON(reqBody))
+	req := httptest.NewRequest(http.MethodPost, "/shorten", convertToJSON(reqBody))
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 
@@ -38,7 +38,7 @@ func TestShortenEndpoint(t *testing.T) {
 
 	// Проверка ответа
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.JSONEq(t, `{"short url": "test_short_url"}`, w.Body.String())
+	assert.JSONEq(t, `{"short_url": "test_short_url"}`, w.Body.String())
 
 	// Убедитесь, что все ожидания были выполнены
 	mockService.AssertExpectations(t)
