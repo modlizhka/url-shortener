@@ -12,7 +12,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"url-shortener/internal/controller"
 	"url-shortener/internal/model"
-	// "url-shortener/internal/service"
 
 	"url-shortener/tests/mocks"
 )
@@ -27,20 +26,16 @@ func TestShortenEndpoint(t *testing.T) {
 	handler := handler.NewHandler(mockService, nil)
 	handler.Register(router)
 
-	// Создание POST-запроса для сокращения ссылки
 	reqBody := model.LongURL{URL: "https://example.com"}
 	req := httptest.NewRequest(http.MethodPost, "/shorten", convertToJSON(reqBody))
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 
-	// Вызов обработчика
 	router.ServeHTTP(w, req)
 
-	// Проверка ответа
 	assert.Equal(t, http.StatusOK, w.Code)
 	assert.JSONEq(t, `{"short_url": "test_short_url"}`, w.Body.String())
 
-	// Убедитесь, что все ожидания были выполнены
 	mockService.AssertExpectations(t)
 }
 
