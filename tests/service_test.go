@@ -13,17 +13,13 @@ import (
 )
 
 func TestShortening(t *testing.T) {
-	// Создаём мок для Storage
 	mockStorage := new(mocks.MockStorage)
 
-	// Настройка ожидаемого поведения мока
 	mockStorage.On("GetLongUrl", mock.Anything, mock.Anything).Return("", storage.ErrNotFound).Once()
 	mockStorage.On("Insert", mock.Anything, mock.Anything, mock.Anything).Return(nil).Once()
 
-	// Инициализируем сервис с использованием мока
 	service := service.NewShortenerService(mockStorage)
 
-	// Вызываем метод Shortening
 	shortURL, err := service.Shortening("https://example.com")
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
