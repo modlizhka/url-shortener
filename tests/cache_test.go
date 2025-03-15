@@ -9,7 +9,6 @@ import (
 )
 
 func TestCache_InsertAndGet(t *testing.T) {
-	// Создаём экземпляр CacheStorage
 	cache := repository.NewCacheStorage()
 
 	// Тестируем вставку значения
