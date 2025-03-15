@@ -17,10 +17,7 @@ func NewDataBaseStorage(pool *postgres.Pool) *DataBaseStorage {
 
 func (s *DataBaseStorage) Insert(shortURL, longURL string) error {
 	query := "INSERT INTO urls (short_url, long_url) VALUES ($1, $2) ON CONFLICT (short_url) DO NOTHING"
-	_, err := s.pool.Query(context.Background(), query, shortURL, longURL)
-	if postgres.IsDuplicateError(err) {
-		return storage.ErrAlreadyExists
-	}
+	_, err := s.pool.Exec(context.Background(), query, shortURL, longURL)
 	return err
 }
 
