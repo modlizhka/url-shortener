@@ -2,7 +2,6 @@ package tests
 
 import (
 	"bytes"
-	// "json"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
