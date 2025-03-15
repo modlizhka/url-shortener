@@ -8,7 +8,7 @@ import (
 
 const Alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_"
 const hashLength = 8                   // Длина желаемого хэша
-const maxIndex = len(Alphabet) ^ 2 - 1 // Максимальное кол-во коллизий для одного хэша
+const maxIndex = len(Alphabet) * len(Alphabet) - 1 // Максимальное кол-во коллизий для одного хэша
 
 type Storage interface {
 	GetLongUrl(shortUrl string) (string, error)
